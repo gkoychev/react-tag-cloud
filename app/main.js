@@ -1,21 +1,20 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react'
+import { render } from 'react-dom'
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
+
+import App from "./components/App";
 import TagCloud from "./components/TagCloud";
-import data from "./data.json";
+import TagInfo from "./components/TagInfo";
 
-let minScore = data[0].sentimentScore;   // assume we have at least one element;
-let maxScore = minScore;
+render(
+    (<Router history={browserHistory}>
+        <Route path="/" component={App}>
+            <IndexRedirect to="tags" />
+            <Route path="tags" component={TagCloud}/>
+            <Route path="tag/:idx" component={TagInfo}/>
+        </Route>
+    </Router>),
 
-data.forEach(el => {
-    if (el.sentimentScore < minScore) {
-        minScore = el.sentimentScore;
-    }
-    if (el.sentimentScore > maxScore) {
-        maxScore = el.sentimentScore;
-    }
-});
+    document.getElementById("container")
+);
 
-ReactDOM.render(
-    <TagCloud data={data} min={minScore} max={maxScore} />,
-    document.querySelector("#container")
-);  
