@@ -11,7 +11,11 @@ module.exports = {
             {
                 loader: 'babel',
                 include: SRC,
-            }
+            },
+            {
+                test: /\.json$/,
+                loader: 'json'
+            },
         ]
     },
 };

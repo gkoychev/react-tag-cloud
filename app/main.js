@@ -1,22 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import TagCloud from "./components/TagCloud";
+import data from "./data.json";
 
-var HelloWorld = React.createClass({
-    render: function() {
-        return (
-            <p>Hello, {this.props.greetTarget}!</p>
-        );
+let minScore = data[0].sentimentScore;   // assume we have at least one element;
+let maxScore = minScore;
+
+data.forEach(el => {
+    if (el.sentimentScore < minScore) {
+        minScore = el.sentimentScore;
+    }
+    if (el.sentimentScore > maxScore) {
+        maxScore = el.sentimentScore;
     }
 });
 
 ReactDOM.render(
-    <div>
-        <HelloWorld greetTarget="Batman"/>
-        <HelloWorld greetTarget="Iron Man"/>
-        <HelloWorld greetTarget="Nicolas Cage"/>
-        <HelloWorld greetTarget="Mega Man"/>
-        <HelloWorld greetTarget="Bono"/>
-        <HelloWorld greetTarget="Catwoman"/>
-    </div>,
+    <TagCloud data={data} min={minScore} max={maxScore} />,
     document.querySelector("#container")
 );  
