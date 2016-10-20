@@ -7,6 +7,13 @@ module.exports = {
     entry: SRC + '/main.js',
     output: { path: __dirname, filename: 'bundle.js' },
     module: {
+        preLoaders: [
+            {
+                test: /\.js$/,
+                include: SRC,
+                loaders: ['babel', 'eslint'],
+            },
+        ],
         loaders: [
             {
                 loader: 'babel',
@@ -17,5 +24,8 @@ module.exports = {
                 loader: 'json'
             },
         ]
+    },
+    devServer: {
+        historyApiFallback: true,
     },
 };
