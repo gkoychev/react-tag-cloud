@@ -9,3 +9,6 @@
 **to start**
 
 `npm start`
+
+
+size of the tags based on *sentimentScore* property from data.json
